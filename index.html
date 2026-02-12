@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>Roasting Community · profile gallery</title>
+    <!-- বাংলা ও ইংরেজি ফন্ট -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0b0c10 0%, #1a1e24 100%);
+            font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+            color: #f0f3f8;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .gallery-wrapper {
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        /* ---------- ROASTING COMMUNITY হেডার (বড়, আলাদা) ---------- */
+        .community-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            position: relative;
+        }
+
+        .community-header h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #ff8a5c, #ff4d6d, #a06cd5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.4);
+            margin-bottom: 0.5rem;
+            word-break: break-word;
+        }
+
+        .community-header .glow-bar {
+            width: 180px;
+            height: 6px;
+            background: linear-gradient(90deg, #ff8a5c, #ff4d6d, #a06cd5);
+            margin: 1.2rem auto 0;
+            border-radius: 50px;
+            box-shadow: 0 0 20px #ff4d6d99;
+        }
+
+        /* ---------- প্রোফাইল কার্ড গ্রিড ---------- */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.2rem 1.8rem;
+        }
+
+        .profile-card {
+            background: rgba(20, 25, 32, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 36px;
+            padding: 1.8rem 1.5rem 1.5rem;
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.6);
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 110, 110, 0.3);
+            box-shadow: 0 30px 45px -10px #ff4d6d33;
+        }
+
+        /* ---------- ইমেজ কন্টেনার - বর্ডার ও সাইজ ঠিক করা ---------- */
+        .card-image {
+            width: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 220, 150, 0.2);
+            background: #0e1217;
+            margin-bottom: 1.2rem;
+            
+            /* ★ ইমেজের সাইজ ঠিক করে দিচ্ছি – তুমি যেই সাইজ চেয়েছো (1:1.2) */
+            aspect-ratio: 1 / 1.2;
+        }
+
+        .card-image img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;        /* পুরো এরিয়াটুকু কাভার করবে, প্রোপর্শন ঠিক রেখে */
+            object-position: top;     /* উপরের অংশ প্রায়োরিটি, কার্ডের তথ্য যেন কাটা না যায় */
+            transition: transform 0.4s ease;
+        }
+
+        .profile-card:hover .card-image img {
+            transform: scale(1.03);
+        }
+
+        /* ---------- প্রোফাইলের নাম – ইমেজের লেখা হুবহু ---------- */
+        .profile-name {
+            font-size: 1.35rem;
+            font-weight: 700;
+            text-align: center;
+            word-break: break-word;
+            padding: 0.5rem 0.2rem 0.3rem;
+            border-bottom: 2px dashed #ff8a5c80;
+            margin-bottom: 0.3rem;
+            color: #fff6e6;
+            font-family: 'Noto Sans Bengali', 'Inter', sans-serif;
+            line-height: 1.4;
+        }
+
+        .profile-name.long-text {
+            font-size: 1.1rem;       /* লম্বা নামের জন্য */
+        }
+
+        .profile-meta {
+            font-size: 0.7rem;
+            color: #a6b6cc;
+            text-transform: uppercase;
+            opacity: 0.7;
+            letter-spacing: 1px;
+        }
+
+        /* ---------- মোবাইল রেস্পন্সিভ ---------- */
+        @media (max-width: 700px) {
+            .community-header h1 { font-size: 2.8rem; }
+        }
+        @media (max-width: 450px) {
+            .community-header h1 { font-size: 2.2rem; }
+            .profile-card { padding: 1.2rem; }
+        }
+
+        .footer-note {
+            margin-top: 4rem;
+            color: #6e7c91;
+            text-align: center;
+            border-top: 1px solid #2f3742;
+            padding-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-wrapper">
+
+        <!-- 🔥 বড় হেডার – রোস্টিং কমিউনিটি (ইমেজ থেকে আলাদা) -->
+        <div class="community-header">
+            <h1>ROASTING COMMUNITY</h1>
+            <div class="glow-bar"></div>
+            <p style="color: #a8b3c5; margin-top: 0.5rem;">⚡ GRILL & GLORY ⚡</p>
+        </div>
+
+        <!-- 🖼️ ৭টি প্রোফাইল কার্ড – ইমেজ ও নাম -->
+        <div class="profile-grid">
+
+            <!-- 1. SNIPER – id:12513551 (1000021425.png) -->
+            <div class="profile-card">
+                <div class="card-image">
+                    <img src="./assets/images/Screenshot_20260212-144909~2.png" alt="SNIPER profile">
+                </div>
+                <div class="profile-name">SNIPER</div>
+                <div class="profile-meta">ID:12513551 · SVIP 1 · Lv.30</div>
+            </div>
+
+            <!-- 2. I'm the wrong female to stalk, I'll post. (1000021428.png) -->
+            <div class="profile-card">
+                <div class="card-image">
+                    <img src="./assets/images/1000021428.png" alt="Wrong female profile">
+                </div>
+                <div class="profile-name long-text">"I'm the wrong female to stalk, I'll post."</div>
+                <div class="profile-meta">Lv.4 · Rare · Charm Master</div>
+            </div>
+
+            <!-- 3. বরাদ্দিত (1000021426.png) -->
+            <div class="profile-card">
+                <div class="card-image">
+                    <img src="./assets/images/1000021426.png" alt="বরাদ্দিত profile">
+                </div>
+                <div class="profile-name">বরাদ্দিত</div>
+                <div class="profile-meta">id:10660394 · Lv.16</div>
+            </div>
+
+            <!-- 4. Xyiana (1000021429.png) -->
+            <div class="profile-card">
+                <div class="card-image">
+                    <img src="./assets/images/1000021429.png" alt="Xyiana profile">
+                </div>
+                <div class="profile-name">Xyiana</div>
+                <div class="profile-meta">Lv.31 · 108 followers</div>
+            </div>
+
+            <!-- 5. Traumatize (1000021430.png) -->
+            <div class="profile-card">
+                <div class="card-image">
+                    <img src="./assets/images/1000021430.png" alt="Traumatize profile">
+                </div>
+                <div class="profile-name">Traumatize</div>
+                <div class="profile-meta">UNITED LEGEND'S · 87 followers</div>
+            </div>
+
+            <!-- 6. Decent___ (1000021427.png) -->
+            <div class="profile-card">
+                <div class="card-image">
+                    <img src="./assets/images/1000021427.png" alt="Decent___ profile">
+                </div>
+                <div class="profile-name">Decent___</div>
+                <div class="profile-meta">Devil Kingdom · ID:2580000</div>
+            </div>
+
+            <!-- 7. বিরামিতক (1000021420.png) -->
+            <div class="profile-card">
+                <div class="card-image">
+                    <img src="./assets/images/1000021420.png" alt="বিরামিতক profile">
+                </div>
+                <div class="profile-name">বিরামিতক</div>
+                <div class="profile-meta">মুচুর কােলা আরেফ লেই · id:10660394</div>
+            </div>
+
+        </div> <!-- profile-grid -->
+
+        <div class="footer-note">
+            🔥 ৭ রোস্টার · ১ কমিউনিটি · আসল আইডি 🔥
+        </div>
+
+    </div> <!-- gallery-wrapper -->
+
+    <!-- 
+        ⚠️ নিশ্চিত হও:
+        - সব ইমেজ assets/images/ ফোল্ডারে আছে
+        - index.html রুটে আছে
+        - ইমেজের নাম ও পাথ হুবহু মিলে গেছে (case-sensitive)
+        - ইমেজ সাইজ: aspect-ratio 1/1.2, পুরো বর্ডার ঠিক থাকবে
+    -->
+</body>
+              </html>
